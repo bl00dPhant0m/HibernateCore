@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class LoggingAspect {
 
-    @Around(value = "execution(**(..))")
-    public Object aroundLogExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+
+    //@Around("@annotation(org.spring.aop.annotations.Loggable)")
+    @Around("execution(* *(..)) && @within(org.spring.aop.annotations.Loggable)")
+    public Object aroundLogExecutionTimeAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
         Object result = joinPoint.proceed();
-        System.out.println("d");
         long endTime = System.currentTimeMillis();
         long executionTime = endTime - startTime;
-        System.out.println(joinPoint.getSignature().getDeclaringTypeName() + "."
-                + joinPoint.getSignature().getName()
-                +"execution time is "+executionTime+"ms");
+        log.info(joinPoint.toLongString()
+                +" execution time is "+executionTime+"ms");
         return result;
     }
 }

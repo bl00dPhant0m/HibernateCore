@@ -1,4 +1,4 @@
-package org.spring.aop.interfaces;
+package org.spring.aop.annotations;
 
 import org.springframework.stereotype.Component;
 
@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
+@Component
 public @interface Loggable {
 }
